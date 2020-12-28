@@ -7,15 +7,15 @@ import sendMenu from './handlers/start';
 import createCategory from './handlers/createCategory';
 import getAllCategory from './database/queryes/getAllCategory';
 import { isPrivateChat } from './shared/validators/ctxValidators';
-import counterWatcher from './database/queryes/counterWatcher';
 
 config();
 
 const TOKEN: string = process.env.TOKEN || '';
 
 const bot = new Telegraf(TOKEN);
+
 connectToDb();
-counterWatcher(bot);
+
 
 bot.start(async ctx => {
     if (!isPrivateChat(ctx)) return;
@@ -29,10 +29,6 @@ bot.command('category', async ctx => {
 bot.on('message', async msg => {
     if (msg.message?.text === 'add') {
         await addUser(msg);
-    }
-    
-    if (msg.message?.text === 'find') {
-        await getAllCategory();
     }
 });
 

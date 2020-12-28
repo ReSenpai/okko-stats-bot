@@ -1,11 +1,8 @@
 import { TelegrafContext } from "telegraf/typings/context";
-import counterWatcher from "../database/queryes/counterWatcher";
-import getAllCategory from "../database/queryes/getAllCategory";
 import getMenuId from "../database/queryes/getMenuId";
 import updateMenuId from "../database/queryes/updateMenuId";
-import keyboard from "../keyboards/category/categoryKeyboard";
-import getAccidentStats from "../shared/getAccidentStats";
 import logg from "../utils/logger";
+import getMenuData from "../shared/getMenuData";
 
 const deleteMenu = async (ctx: TelegrafContext, userId: number) => {
     const menuId = await getMenuId(userId);
@@ -19,16 +16,10 @@ const deleteMenu = async (ctx: TelegrafContext, userId: number) => {
 }
 
 const sendMenu = async (ctx: TelegrafContext) => {
-    const keyboardData = await getAllCategory();
-    const menu = await ctx.reply(getAccidentStats(keyboardData), {
-        reply_markup: {
-            inline_keyboard: keyboard(keyboardData)
-        },
-        parse_mode: 'Markdown'
-    });
+    const {stats, kb} = await getMenuData();
+    const menu = await ctx.reply(stats, kb);
 
     const {message_id, chat: { id }} = menu;
-    console.log(menu)
 
     await deleteMenu(ctx, id);
     await updateMenuId(id, message_id);
