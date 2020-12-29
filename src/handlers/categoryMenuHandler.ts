@@ -1,5 +1,7 @@
 import { TelegrafContext } from "telegraf/typings/context"
+import clearAllCounters from "../database/queryes/clearAllCounters";
 import increaseCounter from "../database/queryes/increaseCounter";
+import settings from "../keyboards/settings";
 import updateMenu from "../shared/updateMenu";
 import logg from "../utils/logger";
 
@@ -13,7 +15,15 @@ const categoryMenuHandler = async (ctx: TelegrafContext) => {
             await updateMenu(ctx);
             break;
         case 'settings':
-            break
+            settings(ctx);
+            break;
+        case 'cleanStats':
+            await clearAllCounters();
+            ctx.answerCbQuery('Статистика удалена');
+            break;
+        case 'back':
+            await updateMenu(ctx);
+            break;
         default:
             await increaseCounter(callbackQuery);
             ctx.answerCbQuery('Голос записан 🥰');
