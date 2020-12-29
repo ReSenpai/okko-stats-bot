@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { TAuthor } from '../queryes/types/types';
 
 export interface IUser extends Document {
     userId: number
@@ -12,5 +13,6 @@ export interface IUser extends Document {
 
 export interface ICategory extends Document {
     name: string
-    counter: number
+    counter: number,
+    author: TAuthor
 }

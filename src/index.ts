@@ -19,16 +19,17 @@ connectToDb();
 
 bot.start(async ctx => {
     if (!isPrivateChat(ctx)) return;
+    await addUser(ctx);
     await sendMenu(ctx);
 });
 
-bot.command('category', async ctx => {
-    await createCategory(ctx);
-});
 
-bot.on('message', async msg => {
-    if (msg.message?.text === 'add') {
-        await addUser(msg);
+bot.on('message', async ctx => {
+    if (ctx.message?.reply_to_message?.text === 'Напишите название кнопки') {
+        await createCategory(ctx);
+        ctx.deleteMessage(ctx.message.reply_to_message.message_id);
+        ctx.deleteMessage(ctx.message.message_id);
+        ctx.reply('Записал');
     }
 });
 
