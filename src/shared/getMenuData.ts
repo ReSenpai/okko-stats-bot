@@ -7,7 +7,7 @@ const getMenuData = async () => {
     const stats = getAccidentStats(keyboardData);
     const kb = {
         reply_markup: {
-            inline_keyboard: keyboard(keyboardData)
+            inline_keyboard: keyboard(keyboardData),
         }
     };
     return {stats , kb};
