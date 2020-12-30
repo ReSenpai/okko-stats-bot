@@ -17,9 +17,14 @@ const deleteMenu = async (ctx: TelegrafContext, userId: number) => {
 
 const sendMenu = async (ctx: TelegrafContext) => {
     const {stats, kb} = await getMenuData();
-    const menu = await ctx.reply(stats, kb);
+    const menu = await ctx.reply(stats, {
+        ...kb,
+        parse_mode: "Markdown"
+    });
 
     const {message_id, chat: { id }} = menu;
+    ctx.session.menuId = message_id;
+    ctx.session.chatId = id;
 
     await deleteMenu(ctx, id);
     await updateMenuId(id, message_id);

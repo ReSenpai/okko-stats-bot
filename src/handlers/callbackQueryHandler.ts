@@ -5,6 +5,7 @@ import increaseCounter from "../database/queryes/increaseCounter";
 import categoryItemEditor from "../keyboards/categoryItemEditor";
 import menuEditor from "../keyboards/menuEditor";
 import settings from "../keyboards/settings";
+import forseReply from "../shared/constructors/forseReply";
 import updateMenu from "../shared/updateMenu";
 import logg from "../utils/logger";
 
@@ -34,14 +35,14 @@ const categoryMenuHandler = async (ctx: TelegrafContext) => {
             const objectId = callbackQuery.replace(/^delete-/, '');
             await deleteCategory(objectId);
             ctx.answerCbQuery('Кнопка удалена 👌');
-            await updateMenu(ctx);
+            await menuEditor(ctx);
+            break;
+        case /^changeName-\w+/i.test(callbackQuery) && callbackQuery:
+            forseReply(ctx, 'Напишите новое имя для кнопки');
+            ctx.session.buttonId = callbackQuery.replace(/^changeName-/, '');
             break;
         case 'addCategory':
-            ctx.reply('Напишите название кнопки', {
-                reply_markup: {
-                    force_reply: true
-                }
-            })
+            forseReply(ctx, 'Напишите название кнопки');
             break;
         case 'back':
             await updateMenu(ctx);
