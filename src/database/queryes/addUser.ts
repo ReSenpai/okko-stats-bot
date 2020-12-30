@@ -3,6 +3,7 @@ import { UserModel } from './../models/userSchema';
 import { TelegrafContext } from 'telegraf/typings/context';
 import { getFirstName, getLastName, getUsername, getFirstAndLastName } from '../../utils/aliases';
 import { User } from 'telegraf/typings/telegram-types';
+import { errorCode } from '../types/types';
 
 const createUserObj = (user: User) => ({
     userId: user.id,
@@ -24,7 +25,11 @@ const addUser = async (ctx: TelegrafContext) => {
             logg.debug(2, 'MongoDB add user', getFirstAndLastName(user));
         });
     } catch (error) {
-        logg.error(2, 'MongoDB add user', error)
+        if (error.code === errorCode.Duplicate) {
+            logg.debug(2, "MongoDB didn't miss the user's duplicate", error.keyValue.userId);
+            return;
+        }
+        logg.error(2, 'MongoDB add user', error);
     } 
 }
 
