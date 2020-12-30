@@ -1,4 +1,4 @@
-import { ICategory } from "../database/models/types";
+import { ICategory } from "../database/types/types";
 
 const keyboard = (arr: Array<ICategory>) => {
     const customButtons = [

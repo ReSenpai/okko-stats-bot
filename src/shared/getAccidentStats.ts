@@ -1,4 +1,4 @@
-import { ICategory } from "../database/models/types";
+import { ICategory } from "../database/types/types";
 
 const getAccidentStats = (data: Array<ICategory>) => {
     const stats = data
@@ -6,7 +6,7 @@ const getAccidentStats = (data: Array<ICategory>) => {
         .sort((a, b) => b.counter - a.counter)
         .map(obj => `${obj.name} : ${obj.counter}`)
         .join('\n');
-    return stats || 'Пусто';
+    return stats  || 'Пусто';
 }
 
 export default getAccidentStats;

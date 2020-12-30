@@ -1,6 +1,6 @@
 import logg from '../../utils/logger';
 import { CategoryModel } from './../models/categorySchema';
-import { TAuthor } from './types/types';
+import { TAuthor } from '../types/types';
 
 const createCategoryObj = (name: string, author: TAuthor) => ({
     name,

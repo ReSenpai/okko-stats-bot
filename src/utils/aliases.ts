@@ -1,5 +1,5 @@
 import { User } from "telegraf/typings/telegram-types";
-import { TAuthor } from "../database/queryes/types/types";
+import { TAuthor } from "../database/types/types";
 
 export const getFirstName = (user: User) => user.first_name || null;
 export const getLastName = (user: User) => user.last_name || null;
