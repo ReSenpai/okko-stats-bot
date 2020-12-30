@@ -17,6 +17,7 @@
         "@types/mongoose": "^5.7.36",
         "mongoose": "^5.10.7",
         "telegraf": "^3.38.0",
+        "telegraf-session-local": "^2.0.0",
         "typescript": "^4.0.3"
     },
     "devDependencies": {
