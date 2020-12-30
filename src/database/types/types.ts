@@ -1,5 +1,14 @@
 import { Document } from 'mongoose';
-import { TAuthor } from '../queryes/types/types';
+
+export type TAuthor = {
+    firstName: string | null
+    lastName: string | null
+    username: string | null
+}
+
+export enum errorCode {
+    Duplicate = 11000
+}
 
 export interface IUser extends Document {
     userId: number
