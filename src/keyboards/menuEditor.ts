@@ -9,12 +9,12 @@ const menuEditor = async (ctx: TelegrafContext) => {
         reply_markup: {
             inline_keyboard: [
                 ...category.map(obj => [{
-                    text: obj.name,
+                    text: `⚙️ ${obj.name}`,
                     callback_data: `edit-${obj._id}`
                 }]),
                 [{
                     text: 'Назад',
-                    callback_data: 'back'
+                    callback_data: 'settings'
                 }]
             ]
         }
