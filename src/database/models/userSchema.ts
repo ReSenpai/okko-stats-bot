@@ -1,10 +1,11 @@
-import { IUser } from './types';
+import { IUser } from '../types/types';
 import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new Schema({
         userId: {
             type: Number,
-            required: true
+            required: true,
+            unique: true
         },
         rank: {
             type: String,
