@@ -11,10 +11,9 @@ const CategorySchema = new Schema({
             required: true,
             default: 0
         },
-        author: {
-            firstName: String,
-            lastName: String,
-            username: String
+        authorId: {
+            type: Number,
+            required: true
         }
     },
     {

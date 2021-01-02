@@ -1,18 +1,15 @@
 import logg from '../../utils/logger';
 import { CategoryModel } from './../models/categorySchema';
-import { TAuthor } from '../types/types';
 
-const createCategoryObj = (name: string, author: TAuthor) => ({
+const createCategoryObj = (name: string, authorId: number) => ({
     name,
     counter: 0,
-    author: {
-        ...author
-    }
+    authorId
 })
 
-const addCategory = async (name: string, author: TAuthor) => {
+const addCategory = async (name: string, authorId: number) => {
     try {
-        await new CategoryModel(createCategoryObj(name, author))
+        await new CategoryModel(createCategoryObj(name, authorId))
         .save()
         .then(() => {
             logg.debug(2, 'MongoDB add category', name);
