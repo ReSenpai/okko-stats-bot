@@ -6,7 +6,7 @@ import categoryItemEditor from "../keyboards/categoryItemEditor";
 import menuEditor from "../keyboards/menuEditor";
 import settings from "../keyboards/settings";
 import forseReply from "../shared/constructors/forseReply";
-import updateMenu from "../shared/updateMenu";
+import mainMenu from "../keyboards/mainMenu";
 import logg from "../utils/logger";
 
 
@@ -16,7 +16,7 @@ const categoryMenuHandler = async (ctx: TelegrafContext) => {
 
     switch (callbackQuery) {
         case 'update':
-            await updateMenu(ctx);
+            await mainMenu(ctx);
             break;
         case 'settings':
             settings(ctx);
@@ -24,6 +24,7 @@ const categoryMenuHandler = async (ctx: TelegrafContext) => {
         case 'cleanStats':
             await clearAllCounters();
             ctx.answerCbQuery('Статистика удалена');
+            await mainMenu(ctx);
             break;
         case 'editMenu':
             await menuEditor(ctx);
@@ -45,12 +46,12 @@ const categoryMenuHandler = async (ctx: TelegrafContext) => {
             forseReply(ctx, 'Напишите название кнопки');
             break;
         case 'back':
-            await updateMenu(ctx);
+            await mainMenu(ctx);
             break;
         default:
             await increaseCounter(callbackQuery);
             ctx.answerCbQuery('Голос записан 🥰');
-            await updateMenu(ctx);
+            await mainMenu(ctx);
             break;
     }
 }
