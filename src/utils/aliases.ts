@@ -1,10 +1,14 @@
+import { IUser } from './../database/types/types';
 import { User } from "telegraf/typings/telegram-types";
-import { TAuthor } from "../database/types/types";
 
 export const getFirstName = (user: User) => user.first_name || null;
 export const getLastName = (user: User) => user.last_name || null;
 export const getUsername = (user: User) => user.username ? `@${user.username}` : null;
-export const getFirstAndLastName = (user: User) => `${getFirstName(user)} ${getLastName(user)}`;
+
+export const getFirstAndLastName = (user: User) => {
+    return `${getFirstName(user) || ''} ${getLastName(user) || ''}`.trim() || null;
+}
+
 export const getAuthorData = (user: User) => {
     return {
         firstName: getFirstName(user),
@@ -12,6 +16,6 @@ export const getAuthorData = (user: User) => {
         username: getUsername(user)
     }
 }
-export const getAuthor = ({firstName, lastName, username}: TAuthor) => {
-    return `${firstName || ''} ${lastName || ''} ${username && `(${username})`}`;
+export const getAuthor = ({firstName, lastName, userName}: IUser) => {
+    return `${firstName || ''} ${lastName || ''} ${userName && `(${userName})`}`;
 }
