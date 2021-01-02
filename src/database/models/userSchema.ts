@@ -1,4 +1,4 @@
-import { IUser } from '../types/types';
+import { ERanks, IUser } from '../types/types';
 import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new Schema({
@@ -9,16 +9,27 @@ const UserSchema = new Schema({
         },
         rank: {
             type: String,
-            required: true
+            default: ERanks.User
         },
-        userName: String,
-        firstName: String,
-        lastName: String,
-        menuId: Number,
+        userName: {
+            type: String,
+            default: null
+        },
+        firstName: {
+            type: String,
+            default: null
+        },
+        lastName: {
+            type: String,
+            default: null
+        },
+        menuId: {
+            type: Number,
+            default: null
+        },
         token: {
             type: String,
-            required: true,
-            default: 0
+            default: null
         }
     },
     {
