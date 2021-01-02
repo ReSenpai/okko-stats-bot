@@ -1,9 +1,8 @@
 import { config } from 'dotenv';
 import { Telegraf } from 'telegraf';
-import addUser from './database/queryes/addUser';
 import connectToDb from './database/database';
 import categoryMenuHandler from './handlers/callbackQueryHandler';
-import sendMenu from './handlers/start';
+import startHandler from './handlers/startHandler';
 import { composeValidators, isPrivateChat, msgTextValidator } from './shared/validators/ctxValidators';
 import messageHandler from './handlers/messageHandler';
 import session from './middlewares/session';
@@ -17,11 +16,9 @@ bot.use(session());
 
 connectToDb();
 
-
 bot.start(async ctx => {
     if (!isPrivateChat(ctx)) return;
-    await addUser(ctx);
-    await sendMenu(ctx); 
+    await startHandler(ctx); 
 });
 
 bot.on('message', async ctx => {
