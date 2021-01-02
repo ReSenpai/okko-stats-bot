@@ -47,7 +47,7 @@ class Logger {
      * @param {string} message What we're loging
      * @returns {string} Formatted console log
      */
-    _logStr(moduleName: string, message: string | null) {
+    _logStr(moduleName: string, message: string | null | number) {
         if (typeof message == 'object') {
             setTimeout(() => {
                 console.log(message);
@@ -89,7 +89,7 @@ class Logger {
      * @param {string} moduleName Name console log
      * @param {string} message What we're loging
      */
-    _default(color: string, logLvl: number, moduleName: string, message: string) {
+    _default(color: string, logLvl: number, moduleName: string, message: string | number) {
         if (this._type === 'ordinary') {
             console.log(this._logStr(moduleName, message));
         } else {
@@ -104,7 +104,7 @@ class Logger {
      * @param {string} moduleName Name console log
      * @param {string} message What we're loging
      */
-    debug(logLvl: number, moduleName: string, message: string) {
+    debug(logLvl: number, moduleName: string, message: string | number) {
         this._default(this._color.cyan, logLvl, moduleName, message);
     }
     /**
