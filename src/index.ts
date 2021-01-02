@@ -3,9 +3,11 @@ import { Telegraf } from 'telegraf';
 import connectToDb from './database/database';
 import categoryMenuHandler from './handlers/callbackQueryHandler';
 import startHandler from './handlers/startHandler';
-import { composeValidators, isPrivateChat, msgTextValidator } from './shared/validators/ctxValidators';
+import { composeValidators, isPrivateChat, isSuperAdmin, msgTextValidator } from './shared/validators/validators';
 import messageHandler from './handlers/messageHandler';
 import session from './middlewares/session';
+import getTokenHandler from './handlers/getTokenHandler';
+import authHandler from './handlers/authHandler';
 
 config();
 
@@ -21,13 +23,25 @@ bot.start(async ctx => {
     await startHandler(ctx); 
 });
 
+bot.command('get_token', async ctx => {
+    if (!(await isSuperAdmin(ctx) && isPrivateChat(ctx))) {
+        return ctx.reply('Недостаточно прав 😔');
+    }
+    await getTokenHandler(ctx);
+});
+
+bot.command('auth', async ctx => {
+    if (!isPrivateChat(ctx)) return;
+    await authHandler(ctx);
+});
+
 bot.on('message', async ctx => {
     if (!composeValidators(isPrivateChat, msgTextValidator)(ctx)) return;
     await messageHandler(ctx);
 });
 
-bot.on('callback_query', async query => {
-    await categoryMenuHandler(query);
+bot.on('callback_query', async ctx => {
+    await categoryMenuHandler(ctx);
 });
 
 bot.launch();

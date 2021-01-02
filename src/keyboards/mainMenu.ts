@@ -1,6 +1,7 @@
 import { TelegrafContext } from 'telegraf/typings/context';
 import getAllCategory from '../database/queryes/getAllCategory';
-import { ICategory } from '../database/types/types';
+import getUserInfo from '../database/queryes/getUserInfo';
+import { ERanks, ICategory } from '../database/types/types';
 import editMenuInSession from '../shared/constructors/editMenuById';
 import { TMsg } from './types';
 
@@ -17,6 +18,10 @@ const mainMenu = async (ctx: TelegrafContext, type: TMsg = 'edit') => {
 
     const keyboardData = await getAllCategory();
     const stats = getAccidentStats(keyboardData);
+    const userId = ctx.from?.id;
+    if (!userId) return;
+
+    const user = await getUserInfo(userId, 'rank');
 
     const keyboard = {
         reply_markup: {
@@ -28,10 +33,12 @@ const mainMenu = async (ctx: TelegrafContext, type: TMsg = 'edit') => {
                 ...keyboardData.map(obj => [{
                 text: obj.name,
                 callback_data: obj._id,}]),
-                [{
-                    text: '🔧 Настройки',
-                    callback_data: 'settings'
-                }]
+                user?.rank === ERanks.User
+                    ? []
+                    : [{
+                        text: '🔧 Настройки',
+                        callback_data: 'settings'
+                    }]
             ],
         }
     }

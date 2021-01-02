@@ -19,7 +19,7 @@ export enum ERanks {
 
 export interface IUser extends Document {
     userId: number
-    rank: string
+    rank: ERanks
     userName: string | null
     firstName: string | null
     lastName: string | null
@@ -31,4 +31,9 @@ export interface ICategory extends Document {
     name: string
     counter: number,
     authorId: number
+}
+
+export interface IToken extends Document {
+    token: string
+    rank: ERanks
 }
