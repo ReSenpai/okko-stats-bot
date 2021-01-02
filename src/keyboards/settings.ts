@@ -5,7 +5,7 @@ const settings = (ctx: TelegrafContext) => {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: '🔄 Очистить стату',
+                    text: '♻️ Очистить стату',
                     callback_data: 'cleanStats'
                 }],
                 [{
@@ -17,7 +17,7 @@ const settings = (ctx: TelegrafContext) => {
                     callback_data: 'addCategory'
                 }],
                 [{
-                    text: 'Назад',
+                    text: '⬅️ Назад',
                     callback_data: 'back'
                 }]
             ]
