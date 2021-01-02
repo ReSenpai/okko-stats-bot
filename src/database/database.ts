@@ -9,7 +9,7 @@ const connectToDb = () => mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    useCreateIndex: true
+    useCreateIndex: true,
 })
 .then(() => logg.green(1, 'MongoDB', 'Connected'))
 .catch(error => logg.error(2, 'MongoDB Connected', error));
