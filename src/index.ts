@@ -40,6 +40,7 @@ bot.on('message', async ctx => {
     // if (ctx.message?.text === 'find') {
     //     await getStatsCategoryByInterval('5ff0fcd63985e507c819922b');
     // }
+    //
     if (!composeValidators(isPrivateChat, msgTextValidator)(ctx)) return;
     await messageHandler(ctx);
 });
