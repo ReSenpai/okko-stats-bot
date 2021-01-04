@@ -1,9 +1,9 @@
 import { TelegrafContext } from "telegraf/typings/context";
-import getMenuId from "../database/queryes/getMenuId";
-import updateMenuId from "../database/queryes/updateMenuId";
-import mainMenu from "../keyboards/mainMenu";
-import addUser from "../database/queryes/addUser";
-import deleteMsgById from "../shared/actions/deleteMsgById";
+import getMenuId from "../../database/queryes/getMenuId";
+import updateMenuId from "../../database/queryes/updateMenuId";
+import mainMenu from "../../keyboards/mainMenu";
+import addUser from "../../database/queryes/addUser";
+import deleteMsgById from "../../shared/actions/deleteMsgById";
 
 const deleteMenu = async (ctx: TelegrafContext, userId: number) => {
     const menuId = await getMenuId(userId);
