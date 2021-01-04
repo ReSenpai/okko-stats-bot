@@ -10,16 +10,21 @@ import getTokenHandler from './handlers/getTokenHandler';
 import authHandler from './handlers/authHandler';
 import getStatsCategoryByInterval from './database/queryes/getStatsCategoryByInterval';
 
-
+const express = require('express')
+const app = express()
+ 
+app.get('/', function (req: any, res: any) {
+  res.send('Hello World')
+})
+ 
 
 config();
 
 const TOKEN: string = process.env.TOKEN || '';
-const PORT: string = process.env.PORT || '';
+const PORT: string = process.env.PORT || '3000';
 
-const bot = new Telegraf(TOKEN, {
-
-});
+const bot = new Telegraf(TOKEN);
+app.listen(PORT)
 bot.use(session());
 
 connectToDb();
