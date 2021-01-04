@@ -6,9 +6,10 @@
     "private": false,
     "scripts": {
         "start": "pm2-runtime start process.yml --env production",
+        "dev": "npm run build:live",
         "stop": "pm2 kill",
         "build": "tsc -p .",
-        "dev": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts",
+        "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts",
         "test": "jest"
     },
     "keywords": [],
