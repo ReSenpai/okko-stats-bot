@@ -1,7 +1,7 @@
 import { TelegrafContext } from "telegraf/typings/context";
-import addTokenToStore from "../database/queryes/addTokenToStore";
-import { ERanks } from "../database/types/types";
-import tokenGenerator from "../utils/tokenGenerator";
+import addTokenToStore from "../../database/queryes/addTokenToStore";
+import { ERanks } from "../../database/types/types";
+import tokenGenerator from "../../utils/tokenGenerator";
 
 const getTokenHandler = async (ctx: TelegrafContext) => {
     const token = tokenGenerator(ERanks.Admin);
