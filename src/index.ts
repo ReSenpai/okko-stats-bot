@@ -1,14 +1,9 @@
 import { config } from 'dotenv';
 import { Telegraf } from 'telegraf';
 import connectToDb from './database/database';
-import categoryMenuHandler from './handlers/callbackQueryHandler';
-import startHandler from './handlers/startHandler';
 import { composeValidators, isPrivateChat, isSuperAdmin, msgTextValidator } from './shared/validators/validators';
-import messageHandler from './handlers/messageHandler';
 import session from './middlewares/session';
-import getTokenHandler from './handlers/getTokenHandler';
-import authHandler from './handlers/authHandler';
-import getStatsCategoryByInterval from './database/queryes/getStatsCategoryByInterval';
+import { authHandler, callbackQueryHandler, getTokenHandler, messageHandler, startHandler } from './handlers';
 
 config();
 
@@ -37,15 +32,12 @@ bot.command('auth', async ctx => {
 });
 
 bot.on('message', async ctx => {
-    // if (ctx.message?.text === 'find') {
-    //     await getStatsCategoryByInterval('5ff0fcd63985e507c819922b');
-    // }
     if (!composeValidators(isPrivateChat, msgTextValidator)(ctx)) return;
     await messageHandler(ctx);
 });
 
 bot.on('callback_query', async ctx => {
-    await categoryMenuHandler(ctx);
+    await callbackQueryHandler(ctx);
 });
 
 bot.launch();
