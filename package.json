@@ -8,7 +8,7 @@
         "node": "15.x"
     },
     "scripts": {
-        "start": "npm run build && pm2-runtime start ecosystem.config.js --env production",
+        "start": "pm2-runtime start ecosystem.config.js --env production",
         "build": "tsc -p .",
         "dev": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts",
         "test": "jest"
