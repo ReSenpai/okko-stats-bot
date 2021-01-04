@@ -10,11 +10,16 @@ import getTokenHandler from './handlers/getTokenHandler';
 import authHandler from './handlers/authHandler';
 import getStatsCategoryByInterval from './database/queryes/getStatsCategoryByInterval';
 
+
+
 config();
 
 const TOKEN: string = process.env.TOKEN || '';
+const PORT: string = process.env.PORT || '';
 
-const bot = new Telegraf(TOKEN);
+const bot = new Telegraf(TOKEN, {
+
+});
 bot.use(session());
 
 connectToDb();
