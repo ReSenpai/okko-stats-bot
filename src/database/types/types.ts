@@ -29,11 +29,19 @@ export interface IUser extends Document {
 
 export interface ICategory extends Document {
     name: string
-    counter: number,
+    counter: number
     authorId: number
+    intervalValue: number
+    limit: number
 }
 
 export interface IToken extends Document {
     token: string
     rank: ERanks
+}
+
+export interface ICategoryStats extends Document {
+    authorClickId: number
+    categoryName: string
+    categoryId: string
 }

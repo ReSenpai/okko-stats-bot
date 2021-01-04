@@ -17,5 +17,5 @@ export const getAuthorData = (user: User) => {
     }
 }
 export const getAuthor = ({firstName, lastName, userName}: IUser) => {
-    return `${firstName || ''} ${lastName || ''} ${userName && `(${userName})`}`;
+    return `${firstName || ''} ${lastName || ''} ${userName ? `(${userName})` : ''}`;
 }

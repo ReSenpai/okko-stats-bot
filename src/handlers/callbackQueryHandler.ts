@@ -8,6 +8,7 @@ import settings from "../keyboards/settings";
 import forseReply from "../shared/constructors/forseReply";
 import mainMenu from "../keyboards/mainMenu";
 import logg from "../utils/logger";
+import addCategoryStats from "../database/queryes/addCategoryStats";
 
 
 const categoryMenuHandler = async (ctx: TelegrafContext) => {
@@ -16,6 +17,13 @@ const categoryMenuHandler = async (ctx: TelegrafContext) => {
 
     switch (callbackQuery) {
         case 'update':
+            await mainMenu(ctx);
+            break;
+        case /^vote-\w+/i.test(callbackQuery) && callbackQuery:
+            const categoryId = callbackQuery.replace(/^vote-/, '');
+            await addCategoryStats(ctx, categoryId);
+            await increaseCounter(categoryId);
+            ctx.answerCbQuery('Голос записан 🥰');
             await mainMenu(ctx);
             break;
         case 'settings':
@@ -49,9 +57,6 @@ const categoryMenuHandler = async (ctx: TelegrafContext) => {
             await mainMenu(ctx);
             break;
         default:
-            await increaseCounter(callbackQuery);
-            ctx.answerCbQuery('Голос записан 🥰');
-            await mainMenu(ctx);
             break;
     }
 }

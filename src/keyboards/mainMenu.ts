@@ -32,7 +32,7 @@ const mainMenu = async (ctx: TelegrafContext, type: TMsg = 'edit') => {
                 }], 
                 ...keyboardData.map(obj => [{
                 text: obj.name,
-                callback_data: obj._id,}]),
+                callback_data: `vote-${obj._id}`,}]),
                 user?.rank === ERanks.User
                     ? []
                     : [{

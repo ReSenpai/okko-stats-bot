@@ -8,6 +8,7 @@ import messageHandler from './handlers/messageHandler';
 import session from './middlewares/session';
 import getTokenHandler from './handlers/getTokenHandler';
 import authHandler from './handlers/authHandler';
+import getStatsCategoryByInterval from './database/queryes/getStatsCategoryByInterval';
 
 config();
 
@@ -36,6 +37,9 @@ bot.command('auth', async ctx => {
 });
 
 bot.on('message', async ctx => {
+    // if (ctx.message?.text === 'find') {
+    //     await getStatsCategoryByInterval('5ff0fcd63985e507c819922b');
+    // }
     if (!composeValidators(isPrivateChat, msgTextValidator)(ctx)) return;
     await messageHandler(ctx);
 });

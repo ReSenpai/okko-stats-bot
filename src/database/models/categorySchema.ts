@@ -14,6 +14,14 @@ const CategorySchema = new Schema({
         authorId: {
             type: Number,
             required: true
+        },
+        intervalValue: {
+            type: Number,
+            default: null
+        },
+        limit: {
+            type: Number,
+            default: null
         }
     },
     {

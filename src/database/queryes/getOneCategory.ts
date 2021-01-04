@@ -1,5 +1,4 @@
 import logg from '../../utils/logger';
-import { ICategory } from '../types/types';
 import { CategoryModel } from './../models/categorySchema';
 
 const getOneCategory = async (objectId: string) => {
