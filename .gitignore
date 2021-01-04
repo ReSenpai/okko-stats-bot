@@ -106,4 +106,4 @@ dist
 # sessions
 sessions.json
 
-lib/*
+lib/
