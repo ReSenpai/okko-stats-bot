@@ -15,13 +15,21 @@ const CategorySchema = new Schema({
             type: Number,
             required: true
         },
-        intervalValue: {
+        сooldown: {
             type: Number,
-            default: null
+            default: 30
         },
         limit: {
             type: Number,
-            default: null
+            default: 10
+        },
+        timeSnapshot: {
+            type: Date,
+            default: new Date('January 7, 1993 03:24:00')
+        },
+        multiplier: {
+            type: Number,
+            default: 1.0
         }
     },
     {
