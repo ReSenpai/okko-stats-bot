@@ -9,10 +9,9 @@ const convertStatsToText = (data: Array<IStatsData>) => {
         .join('\n');
     return `
     ⌛️ Что произошло за последний час?
-    \n${stats}
+    \n${stats.length > 0 ? stats : '🌍  👌 - Все в норме'}
 
-    \n🕜 \`Состояние на ${getTimeToString()} по МСК\`
-    `
+    \n🕜 \`Состояние на ${getTimeToString()} по МСК\``;
 }
 
 export default convertStatsToText;

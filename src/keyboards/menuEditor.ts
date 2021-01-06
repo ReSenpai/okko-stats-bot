@@ -1,6 +1,7 @@
 import { TelegrafContext } from "telegraf/typings/context";
 import getAllCategory from "../database/queryes/getAllCategory";
 import editMenuInSession from "../shared/constructors/editMenuById";
+import logg from "../utils/logger";
 
 type TType = 'edit' | 'edit-by-id';
 
@@ -24,8 +25,16 @@ const menuEditor = async (ctx: TelegrafContext, type: TType = 'edit') => {
     }
 
     switch (type) {
-        case 'edit': return ctx.editMessageText(menuText, keyboard);
-        case 'edit-by-id': return editMenuInSession(ctx, menuText, keyboard);
+        case 'edit': return ctx.editMessageText(menuText, keyboard).catch(error => {
+            logg.error(2, 'menuEditor', error);
+        });
+        case 'edit-by-id': 
+            try {
+                return editMenuInSession(ctx, menuText, keyboard);
+            } catch (error) {
+                logg.error(2, 'menuEditor', error);
+                break;
+            }
     }
 }
 

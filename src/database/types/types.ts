@@ -1,12 +1,5 @@
 import { Document } from 'mongoose';
 
-// TODO: delete ?
-export type TAuthor = {
-    firstName: string | null
-    lastName: string | null
-    username: string | null
-}
-
 export enum ErrorCode {
     Duplicate = 11000
 }
@@ -31,10 +24,10 @@ export interface ICategory extends Document {
     name: string
     counter: number
     authorId: number
-    сooldown: number
     limit: number
     timeSnapshot: Date
     multiplier: number
+    cooldown: number
 }
 
 export interface IToken extends Document {

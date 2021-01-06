@@ -1,13 +1,10 @@
 import { TelegrafContext } from "telegraf/typings/context";
+import logg from "../utils/logger";
 
 const settings = (ctx: TelegrafContext) => {
     return ctx.editMessageText('Настройки', {
         reply_markup: {
             inline_keyboard: [
-                [{
-                    text: '♻️ Очистить стату',
-                    callback_data: 'cleanStats'
-                }],
                 [{
                     text: '📜 Редактировать меню',
                     callback_data: 'editMenu'
@@ -22,6 +19,8 @@ const settings = (ctx: TelegrafContext) => {
                 }]
             ]
         }
+    }).catch(error => {
+        logg.error(2, 'settings', error);
     });
 }
 

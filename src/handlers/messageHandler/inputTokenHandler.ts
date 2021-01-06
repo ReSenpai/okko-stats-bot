@@ -1,4 +1,4 @@
-import { ERanks } from './../../database/types/types';
+import { ERanks } from '../../database/types/types';
 import { TelegrafContext } from "telegraf/typings/context";
 import findAndDeleteToken from "../../database/queryes/findAndDeleteToken";
 import getUserInfo from "../../database/queryes/getUserInfo";

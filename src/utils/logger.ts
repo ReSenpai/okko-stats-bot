@@ -1,4 +1,6 @@
-import * as fs from 'fs';
+import { config } from 'dotenv';
+config();
+const RESENPAI_DEV: string = process.env.RESENPAI_DEV || 'SERVER';
 
 class Logger {
     _logLvl: number
@@ -153,6 +155,6 @@ class Logger {
     }
 }
 
-const logg = new Logger(3, 'colored'); 
+const logg = new Logger(3, RESENPAI_DEV === 'DEV' ? 'colored' : 'ordinary'); 
 
 export default logg;

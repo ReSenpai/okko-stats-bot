@@ -20,11 +20,11 @@ const voteCbQueryHandler = async (ctx: TelegrafContext) => {
     await increaseCounter(categoryId); // TODO: Delete?
     const category = await getOneCategory(categoryId);
     if (category) {
-        const {timeSnapshot, limit, name, сooldown, multiplier} = category;
-        const currentValue = await getStatsCategoryByInterval(categoryId, сooldown);
+        const {timeSnapshot, limit, name, cooldown, multiplier} = category;
+        const currentValue = await getStatsCategoryByInterval(categoryId, cooldown);
 
         const alertText = (emoji: string) => `
-        ${emoji.repeat(1)} ${currentValue} обращений за последние ${сooldown} минут ${emoji.repeat(1)} 
+        ${emoji.repeat(1)} ${currentValue} обращений за последние ${cooldown} минут ${emoji.repeat(1)} 
         \n📜 ${name}
         \n🕜 \`Состояние на ${getTimeToString()} по МСК\`
         `
@@ -37,7 +37,7 @@ const voteCbQueryHandler = async (ctx: TelegrafContext) => {
             })
         }
 
-        const cooldownIsDone = timeSnapshot && getTimeDiff(timeSnapshot) > сooldown * 60;
+        const cooldownIsDone = timeSnapshot && getTimeDiff(timeSnapshot) > cooldown * 60;
 
         const exceedingLimit = async (mult: number) => {
             if (currentValue >= (limit * mult)) {

@@ -15,13 +15,13 @@ const CategorySchema = new Schema({
             type: Number,
             required: true
         },
-        сooldown: {
+        cooldown: {
             type: Number,
-            default: 30
+            default: 10
         },
         limit: {
             type: Number,
-            default: 10
+            default: 4
         },
         timeSnapshot: {
             type: Date,

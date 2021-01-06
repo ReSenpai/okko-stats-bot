@@ -1,10 +1,13 @@
+import { changeCooldownText, changeLimitValue } from './../consts/replyMsgTextConsts';
 import { TelegrafContext } from "telegraf/typings/context";
 import updateCategory from "../../database/queryes/updateCategory";
 import menuEditor from "../../keyboards/menuEditor";
 import cleanUpMsg from "../../shared/actions/cleanUpMsg";
 import logg from "../../utils/logger";
 import addCategoryHandler from "./addCategoryHandler";
-import inputTokenHandler from './inputTokenHandker';
+import inputTokenHandler from './inputTokenHandler';
+import changeCooldownHandler from './changeCooldownHandler';
+import changeLimitHandler from './changeLimitHandler';
 
 const msgReplyHandler = async (ctx: TelegrafContext) => {
     const replyMsgText = ctx.message?.reply_to_message?.text;
@@ -25,8 +28,14 @@ const msgReplyHandler = async (ctx: TelegrafContext) => {
         case 'Введите токен':
             await inputTokenHandler(ctx);
             break;
+        case changeCooldownText:
+            await changeCooldownHandler(ctx);
+            break;
+        case changeLimitValue:
+            await changeLimitHandler(ctx);
+            break;
         default:
-            await addCategoryHandler(ctx);
+            ctx.deleteMessage().catch(e => logg.error(2, 'msgReplyHandler', e));
             break;
     }
 }
