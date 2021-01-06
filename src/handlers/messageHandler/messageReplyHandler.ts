@@ -12,13 +12,13 @@ const msgReplyHandler = async (ctx: TelegrafContext) => {
     const userId = ctx.from?.id;
     
     if (!(msgText && userId)) return logg.error(2, 'messageHandler', 'ctx.message?.text undefined');
-
+    
     switch (replyMsgText) {
         case 'Напишите название кнопки':
             await addCategoryHandler(ctx);  
             break;
         case 'Напишите новое имя для кнопки':
-            await updateCategory(ctx.session.buttonId, msgText);
+            await updateCategory({_id: ctx.session.buttonId}, {name: msgText});
             await menuEditor(ctx, 'edit-by-id');
             cleanUpMsg(ctx);
             break;

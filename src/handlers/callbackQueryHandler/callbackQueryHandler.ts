@@ -50,6 +50,13 @@ const callbackQueryHandler = async (ctx: TelegrafContext) => {
             forseReply(ctx, 'Напишите название кнопки');
             ctx.session.addCategoryStatus = EAddCategoryStatus.Name;
             break;
+        case 'closeAlert':
+            try {
+                ctx.deleteMessage();
+            } catch (error) {
+                logg.error(2, 'closeAlert', error);
+            }
+            break;
         case 'back':
             await mainMenu(ctx);
             break;

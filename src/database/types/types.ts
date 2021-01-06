@@ -31,8 +31,10 @@ export interface ICategory extends Document {
     name: string
     counter: number
     authorId: number
-    intervalValue: number
+    сooldown: number
     limit: number
+    timeSnapshot: Date
+    multiplier: number
 }
 
 export interface IToken extends Document {

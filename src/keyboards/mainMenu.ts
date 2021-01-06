@@ -1,23 +1,19 @@
 import { TelegrafContext } from 'telegraf/typings/context';
+import getAllCategoriesLastHour from '../database/queryes/getAllCategorieslastHour';
 import getAllCategory from '../database/queryes/getAllCategory';
 import getUserInfo from '../database/queryes/getUserInfo';
-import { ERanks, ICategory } from '../database/types/types';
+import { ERanks } from '../database/types/types';
+import collectCategoriesStatsData from '../shared/constructors/collectCategoriesStatsData';
+import convertStatsToText from '../shared/constructors/convertStatsToText';
 import editMenuInSession from '../shared/constructors/editMenuById';
+import logg from '../utils/logger';
 import { TMsg } from './types';
 
-const getAccidentStats = (data: Array<ICategory>) => {
-    const stats = data
-        .filter(obj => obj.counter > 0)
-        .sort((a, b) => b.counter - a.counter)
-        .map(obj => `${obj.name} : ${obj.counter}`)
-        .join('\n');
-    return stats  || 'Пусто';
-}
-
 const mainMenu = async (ctx: TelegrafContext, type: TMsg = 'edit') => {
-
     const keyboardData = await getAllCategory();
-    const stats = getAccidentStats(keyboardData);
+    const statsData = collectCategoriesStatsData(await getAllCategoriesLastHour())
+
+    const stats = convertStatsToText(statsData);
     const userId = ctx.from?.id;
     if (!userId) return;
 
@@ -40,15 +36,33 @@ const mainMenu = async (ctx: TelegrafContext, type: TMsg = 'edit') => {
                         callback_data: 'settings'
                     }]
             ],
+            parse_mode: "Markdown"
         }
     }
 
     switch (type) {
-        case 'edit': return ctx.editMessageText(stats, keyboard).catch(() => {
+        case 'edit': return ctx.editMessageText(stats, {
+            ...keyboard,
+            parse_mode: 'Markdown'
+        }).catch(() => {
                 ctx.answerCbQuery('Не так быстро ❤️');
             });
-        case 'edit-by-id': return editMenuInSession(ctx, stats, keyboard);
-        case 'reply': return ctx.reply(stats, keyboard);
+        case 'edit-by-id': 
+            try {
+                return editMenuInSession(ctx, stats, {
+                    ...keyboard,
+                    parse_mode: 'Markdown'
+                });
+            } catch (error) {
+                logg.error(2, 'mainMenu', error);
+                break;
+            }
+        case 'reply': return ctx.reply(stats, {
+            ...keyboard,
+            parse_mode: 'Markdown'
+        }).catch(() => {
+                ctx.answerCbQuery('Не так быстро ❤️');
+        });
     }  
 }
 

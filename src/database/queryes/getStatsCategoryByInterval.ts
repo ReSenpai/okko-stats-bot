@@ -14,11 +14,11 @@ const getStatsCategoryByInterval = async (categoryId: string, interval: number =
             },
             categoryId 
         }).select('categoryId categoryName');
-        console.log(category);
-        logg.debug(2, 'MongoDB find last hour category', category.length.toString());
+
+        logg.debug(2, `MongoDB find category for last ${interval} minutes`, category.length.toString());
         return category.length;
     } catch (error) {
-        logg.error(2, 'MongoDB find last hour category', error);
+        logg.error(2, `MongoDB find category for last ${interval} minutes`, error);
         return [];
     }
 }
