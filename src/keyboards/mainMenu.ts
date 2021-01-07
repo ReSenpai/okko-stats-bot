@@ -32,7 +32,7 @@ const mainMenu = async (ctx: TelegrafContext, type: TMsg = 'edit') => {
                 user?.rank === ERanks.User
                     ? []
                     : [{
-                        text: '🔧 Настройки',
+                        text: '👑 Админка',
                         callback_data: 'settings'
                     }]
             ],
