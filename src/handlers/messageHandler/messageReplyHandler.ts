@@ -1,4 +1,4 @@
-import { changeCooldownText, changeLimitValue } from './../consts/replyMsgTextConsts';
+import { changeButtonText, changeCooldownText, changeLimitValue, createButtonText, inputTokenText } from './../consts/replyMsgTextConsts';
 import { TelegrafContext } from "telegraf/typings/context";
 import updateCategory from "../../database/queryes/updateCategory";
 import menuEditor from "../../keyboards/menuEditor";
@@ -17,15 +17,15 @@ const msgReplyHandler = async (ctx: TelegrafContext) => {
     if (!(msgText && userId)) return logg.error(2, 'messageHandler', 'ctx.message?.text undefined');
     
     switch (replyMsgText) {
-        case 'Напишите название кнопки':
+        case createButtonText:
             await addCategoryHandler(ctx);  
             break;
-        case 'Напишите новое имя для кнопки':
+        case changeButtonText:
             await updateCategory({_id: ctx.session.buttonId}, {name: msgText});
             await menuEditor(ctx, 'edit-by-id');
             cleanUpMsg(ctx);
             break;
-        case 'Введите токен':
+        case inputTokenText:
             await inputTokenHandler(ctx);
             break;
         case changeCooldownText:

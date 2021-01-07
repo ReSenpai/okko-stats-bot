@@ -1,7 +1,8 @@
 import { TelegrafContext } from "telegraf/typings/context";
+import { inputTokenText } from "../consts/replyMsgTextConsts";
 
 const authHandler = async (ctx: TelegrafContext) => {
-    ctx.reply('Введите токен', {
+    ctx.reply(inputTokenText, {
         reply_markup: {
             force_reply: true
         }

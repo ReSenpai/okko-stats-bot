@@ -7,7 +7,7 @@ import forseReply from "../../shared/constructors/forseReply";
 import mainMenu from "../../keyboards/mainMenu";
 import logg from "../../utils/logger";
 import voteCbQueryHandler from "./voteCbQueryHandler";
-import { changeCooldownText, changeLimitValue } from "../consts/replyMsgTextConsts";
+import { changeButtonText, changeCooldownText, changeLimitValue, createButtonText } from "../consts/replyMsgTextConsts";
 
 
 const callbackQueryHandler = async (ctx: TelegrafContext) => {
@@ -22,7 +22,7 @@ const callbackQueryHandler = async (ctx: TelegrafContext) => {
             await voteCbQueryHandler(ctx);
             break;
         case 'settings':
-            settings(ctx);
+            await settings(ctx);
             break;
         case 'editMenu':
             await menuEditor(ctx);
@@ -39,7 +39,7 @@ const callbackQueryHandler = async (ctx: TelegrafContext) => {
             break;
         case /^changeName-\w+/i.test(callbackQuery) && callbackQuery:
             ctx.session.buttonId = callbackQuery.replace(/^changeName-/, '');
-            forseReply(ctx, 'Напишите новое имя для кнопки');
+            forseReply(ctx, changeButtonText);
             break;
         case /^changeCooldown-\w+/i.test(callbackQuery) && callbackQuery:
             ctx.session.buttonId = callbackQuery.replace(/^changeCooldown-/, '');
@@ -50,14 +50,12 @@ const callbackQueryHandler = async (ctx: TelegrafContext) => {
             forseReply(ctx, changeLimitValue);
             break;
         case 'addCategory':
-            forseReply(ctx, 'Напишите название кнопки');
+            forseReply(ctx, createButtonText);
             break;
         case 'closeAlert':
-            try {
-                ctx.deleteMessage();
-            } catch (error) {
+            ctx.deleteMessage().catch(error => {
                 logg.error(2, 'closeAlert', error);
-            }
+            });
             break;
         case 'back':
             await mainMenu(ctx);
