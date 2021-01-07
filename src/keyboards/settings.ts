@@ -1,13 +1,17 @@
 import { TelegrafContext } from "telegraf/typings/context";
 import logg from "../utils/logger";
 
-const settings = (ctx: TelegrafContext) => {
+const settings = async (ctx: TelegrafContext) => {
     return ctx.editMessageText('Настройки', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: '📜 Редактировать меню',
+                    text: '🔧 Редактировать кнопки',
                     callback_data: 'editMenu'
+                }],
+                [{
+                    text: '📅 Подробная статистика',
+                    callback_data: 'detailedStats'
                 }],
                 [{
                     text: '➕ Добавить кнопку',
