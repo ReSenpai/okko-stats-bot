@@ -8,6 +8,7 @@ import updateCategory from "../../database/queryes/updateCategory";
 import alert from "../../keyboards/alert";
 import mainMenu from "../../keyboards/mainMenu";
 import getTimeDiff from "../../shared/actions/getTimeDiff";
+import markerProvider from "../../shared/constructors/markerProvider";
 import getTimeToString from "../../utils/getTimeToString";
 import logg from "../../utils/logger";
 
@@ -17,7 +18,7 @@ const voteCbQueryHandler = async (ctx: TelegrafContext) => {
 
     const categoryId = callbackQuery.replace(/^vote-/, '');
     await addCategoryStats(ctx, categoryId);
-    await increaseCounter(categoryId); // TODO: Delete?
+    await increaseCounter(categoryId);
     const category = await getOneCategory(categoryId);
     if (category) {
         const {timeSnapshot, limit, name, cooldown, multiplier} = category;
@@ -41,8 +42,14 @@ const voteCbQueryHandler = async (ctx: TelegrafContext) => {
 
         const exceedingLimit = async (mult: number) => {
             if (currentValue >= (limit * mult)) {
+                const marker = markerProvider(mult, {
+                    normal: 0,      // levels marker
+                    stress: 1,      // x1
+                    notGood: 1.5,   // x1.5
+                    redAlert: 2     // x2
+                })
                 await updateCategory({_id: categoryId}, {timeSnapshot: new Date(), multiplier: multiplier + 0.5});
-                await mailing('🆘');
+                await mailing(marker);
             }
         }
 
