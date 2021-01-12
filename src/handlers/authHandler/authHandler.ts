@@ -1,5 +1,5 @@
 import { TelegrafContext } from "telegraf/typings/context";
-import { inputTokenText } from "../consts/replyMsgTextConsts";
+import { inputTokenText } from "../../shared/textDesk/replyMsgTextConsts";
 
 const authHandler = async (ctx: TelegrafContext) => {
     ctx.reply(inputTokenText, {

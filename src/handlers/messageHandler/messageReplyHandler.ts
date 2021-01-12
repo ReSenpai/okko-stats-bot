@@ -1,4 +1,4 @@
-import { changeButtonText, changeCooldownText, changeLimitValue, createButtonText, inputTokenText } from './../consts/replyMsgTextConsts';
+import { changeButtonText, changeCooldownText, changeLimitValue, createButtonText, inputTokenText } from '../../shared/textDesk/replyMsgTextConsts';
 import { TelegrafContext } from "telegraf/typings/context";
 import updateCategory from "../../database/queryes/updateCategory";
 import menuEditor from "../../keyboards/menuEditor";

@@ -4,6 +4,7 @@ import connectToDb from './database/database';
 import { composeValidators, isPrivateChat, isSuperAdmin, msgTextValidator } from './shared/validators/validators';
 import session from './middlewares/session';
 import { authHandler, callbackQueryHandler, getTokenHandler, messageHandler, startHandler } from './handlers';
+import help from './keyboards/help';
 
 config();
 
@@ -30,6 +31,10 @@ bot.command('auth', async ctx => {
     if (!isPrivateChat(ctx)) return;
     await authHandler(ctx);
 });
+
+bot.command('help', ctx => {
+    help(ctx, 'reply');
+})
 
 bot.on('message', async ctx => {
     if (!composeValidators(isPrivateChat, msgTextValidator)(ctx)) return;

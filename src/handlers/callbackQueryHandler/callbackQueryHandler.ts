@@ -7,7 +7,8 @@ import forseReply from "../../shared/constructors/forseReply";
 import mainMenu from "../../keyboards/mainMenu";
 import logg from "../../utils/logger";
 import voteCbQueryHandler from "./voteCbQueryHandler";
-import { changeButtonText, changeCooldownText, changeLimitValue, createButtonText } from "../consts/replyMsgTextConsts";
+import { changeButtonText, changeCooldownText, changeLimitValue, createButtonText } from "../../shared/textDesk/replyMsgTextConsts";
+import helpCbQueryHandler from "./helpCbQueryHanlder";
 
 
 const callbackQueryHandler = async (ctx: TelegrafContext) => {
@@ -48,6 +49,10 @@ const callbackQueryHandler = async (ctx: TelegrafContext) => {
         case /^changeLimit-\w+/i.test(callbackQuery) && callbackQuery:
             ctx.session.buttonId = callbackQuery.replace(/^changeLimit-/, '');
             forseReply(ctx, changeLimitValue);
+            break;
+        case /^help-\w+/i.test(callbackQuery) && callbackQuery:
+            const helpCase = callbackQuery.replace(/^help-/, '');
+            helpCbQueryHandler(ctx, helpCase);
             break;
         case 'addCategory':
             forseReply(ctx, createButtonText);
